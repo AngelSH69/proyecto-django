@@ -1,0 +1,86 @@
+{% extends "inicio/encabezado.html" %}
+
+{% block titulo %}Formulario{% endblock %}
+
+{% block imagen%}
+	{%load static%}
+	{%static 'inicio/images/registrar.png'%}
+{% endblock%}
+
+{%block span%}Formulario <span>DSM</span>{%endblock%}
+
+
+
+
+		
+
+			{% block encavezado%}
+			<!-- Encabezado de la página -->
+			<div class="page-header">
+				<div class="page-title">
+					<h3>Registro
+				    <small>Ingresa tu información</small></h3>
+				</div>
+
+				
+				
+			</div>
+			<!-- Fin del encabezado -->
+			 {%endblock%}
+
+			 {% block navegacion %}
+			 <!-- Barra de navegación -->
+	
+		<!-- Fin de la barra de navegación -->
+			 {%endblock%}
+
+{% block contenido %}
+
+			<!-- Formulario de registro -->
+			<form class="form-horizontal" action="#" role="form">
+	            <div class="panel panel-default">
+	                <div class="panel-body">
+
+				        <div class="form-group">
+				            <label class="col-sm-2 control-label text-right">Matricula:</label>
+				            <div class="col-sm-10">
+				            	<input type="text" class="form-control">
+				            </div>
+				        </div>
+				        
+				        <div class="form-group">
+				            <label class="col-sm-2 control-label text-right">Nombre:</label>
+				            <div class="col-sm-10">
+				            	<input type="text" class="form-control">
+				            </div>
+				        </div>
+						<div class="form-group">
+				            <label class="col-sm-2 control-label text-right">Carrera:</label>
+				            <div class="col-sm-10">
+				            	<select data-placeholder="Elige una carrera..." class="select" tabindex="2">
+	                                <option value=""></option> 
+	                                <option value="win7">TIC</option> 
+	                                <option value="win8">BIO</option> 
+	                                <option value="macos">MAI</option> 
+	                        </select>
+				            </div>
+				        </div>
+						<div class="form-group">
+				            <label class="col-sm-2 control-label text-right">Turno:</label>
+				            <div class="col-sm-10">
+				            	<input type="radio" name="turno" class="styled" checked="checked"> Matutino
+											<input type="radio" name="turno" class="styled"> Vespertino
+				            </div>
+				        </div>
+				        
+                        <div class="form-actions text-right">
+                        	<input type="submit" value="Enviar" class="btn btn-primary">
+                        </div>
+
+				    </div>
+				</div>
+			</form>
+		<!-- Fin del formulario -->
+		
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "inicio/encabezado.html" %}
+
+{% block titulo %}Contacto{% endblock %}
+
+{% block imagen%}
+	{%load static%}
+	{%static 'inicio/images/contacto.png'%}
+{% endblock%}	
+
+{%block span%}Contacto <span>DSM</span>{%endblock%}
+
+{% block encavezado%}
+			<!-- Encabezado de la página -->
+			<div class="page-header">
+				<div class="page-title">
+					<h3>Contacto
+				    <small>Ingresa tu información</small></h3>
+				</div>
+
+				
+				
+			</div>
+			<!-- Fin del encabezado -->
+			 {%endblock%}
+
+{% block contenido %}
+
+			<!-- Formulario de contacto -->
+			<form class="form-horizontal" action="{% url 'Registrar'%}" method="POST" role="form">
+			{%csrf_token%}
+	            <div class="panel panel-default">
+	                <div class="panel-body">
+
+				        <div class="form-group">
+				            <label class="col-sm-2 control-label text-right">Nombre:</label>
+				            <div class="col-sm-10">
+				            	<input name="usuario" type="text" class="form-control">
+				            </div>
+				        </div>
+				        
+				        <div class="form-group">
+				            <label class="col-sm-2 control-label text-right">Mensaje:</label>
+				            <div class="col-sm-10">
+				            	<textarea name="mensaje" cols="50" rows="10" class="form-control"></textarea>
+				            </div>
+				        </div>
+						
+				        
+                        <div class="form-actions text-right">
+                        	<input type="submit" value="Enviar" class="btn btn-primary">
+                        </div>
+
+				    </div>
+				</div>
+			</form>
+		<!-- Fin del formulario -->
+		
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "inicio/encabezado.html" %}
+
+{% block titulo %}CARGAR ARCHIVO{% endblock %}
+
+{% block imagen%}
+	{%load static%}
+	{%static 'inicio/images/contacto.png'%}
+{% endblock%}	
+
+{%block span%}Contacto <span>DSM</span>{%endblock%}
+
+{% block encavezado%}
+			<!-- Encabezado de la página -->
+			<div class="page-header">
+				<div class="page-title">
+					<h3>Cargar archivo
+				    <small>Ingresa tu archivo</small></h3>
+				</div>
+
+				
+				
+			</div>
+			<!-- Fin del encabezado -->
+			 {%endblock%}
+
+{% block contenido %}
+
+			<!-- Formulario de contacto -->
+			<form class="form-horizontal" action="{% url 'Subir'%}" method="POST" role="form" enctype="multipart/form-data"><!-- Agregar enctype para permitir la carga de archivos -->
+			{%csrf_token%}
+	            <div class="panel panel-default">
+	                <div class="panel-body">
+
+				        <div class="form-group">
+				            <label class="col-sm-2 control-label text-right">Titulo:</label>
+				            <div class="col-sm-10">
+				            	<input name="titulo" type="text" class="form-control">
+				            </div>
+				        </div>
+				        
+				        <div class="form-group">
+				            <label class="col-sm-2 control-label text-right">Deescripcion:</label>
+				            <div class="col-sm-10">
+				            	<textarea name="descripcion" cols="50" rows="10" class="form-control"></textarea>
+				            </div>
+				        </div>
+
+                        <div class="form-group">
+				            <label class="col-sm-2 control-label text-right">Archivo:</label>
+				            <div class="col-sm-10">
+				            	<input name="archivo" type="file" class="form-control">
+				            </div>
+				        </div>
+						
+                        <div class="form-actions text-right">
+                        	<input type="submit" value="Enviar" class="btn btn-primary">
+                        </div>
+
+				    </div>
+				</div>
+			</form>
+		<!-- Fin del formulario -->
+		
+{% endblock %}
