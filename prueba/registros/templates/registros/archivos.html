@@ -26,34 +26,34 @@
 {% block contenido %}
 
 			<!-- Formulario de contacto -->
-			<form class="form-horizontal" action="{% url 'Subir'%}" method="POST" role="form" enctype="multipart/form-data"><!-- Agregar enctype para permitir la carga de archivos -->
+			<form class="form-horizontal" action="{% url 'Subir'%}" method="POST" role="form" enctype="multipart/form-data" aria-label="Formulario de carga de archivos"><!-- Agregar enctype para permitir la carga de archivos -->
 			{%csrf_token%}
 	            <div class="panel panel-default">
 	                <div class="panel-body">
 
 				        <div class="form-group">
-				            <label class="col-sm-2 control-label text-right">Titulo:</label>
+				            <label class="col-sm-2 control-label text-right" for="titulo">Titulo:</label>
 				            <div class="col-sm-10">
-				            	<input name="titulo" type="text" class="form-control">
+				            	<input id="titulo" name="titulo" type="text" class="form-control" required aria-required="true" aria-label="Título del archivo">
 				            </div>
 				        </div>
 				        
 				        <div class="form-group">
-				            <label class="col-sm-2 control-label text-right">Deescripcion:</label>
+				            <label class="col-sm-2 control-label text-right" for="descripcion">Descripción:</label>
 				            <div class="col-sm-10">
-				            	<textarea name="descripcion" cols="50" rows="10" class="form-control"></textarea>
+				            	<textarea id="descripcion" name="descripcion" cols="50" rows="10" class="form-control" aria-label="Descripción del contenido"></textarea>
 				            </div>
 				        </div>
 
                         <div class="form-group">
-				            <label class="col-sm-2 control-label text-right">Archivo:</label>
+				            <label class="col-sm-2 control-label text-right" for="archivo">Archivo:</label>
 				            <div class="col-sm-10">
-				            	<input name="archivo" type="file" class="form-control">
+				            	<input id="archivo" name="archivo" type="file" class="form-control" required aria-required="true" aria-label="Selecciona archivo para cargar">
 				            </div>
 				        </div>
 						
                         <div class="form-actions text-right">
-                        	<input type="submit" value="Enviar" class="btn btn-primary">
+                        	<button type="submit" class="btn btn-primary" aria-label="Enviar formulario de carga">Enviar</button>
                         </div>
 
 				    </div>

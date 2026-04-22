@@ -26,28 +26,28 @@
 {% block contenido %}
 
 			<!-- Formulario de contacto -->
-			<form class="form-horizontal" action="{% url 'Registrar'%}" method="POST" role="form">
+			<form class="form-horizontal" action="{% url 'Registrar'%}" method="POST" role="form" aria-label="Formulario de contacto">
 			{%csrf_token%}
 	            <div class="panel panel-default">
 	                <div class="panel-body">
 
 				        <div class="form-group">
-				            <label class="col-sm-2 control-label text-right">Nombre:</label>
+				            <label class="col-sm-2 control-label text-right" for="usuario">Nombre:</label>
 				            <div class="col-sm-10">
-				            	<input name="usuario" type="text" class="form-control">
+				            	<input id="usuario" name="usuario" type="text" class="form-control" required aria-required="true" aria-label="Tu nombre">
 				            </div>
 				        </div>
 				        
 				        <div class="form-group">
-				            <label class="col-sm-2 control-label text-right">Mensaje:</label>
+				            <label class="col-sm-2 control-label text-right" for="mensaje">Mensaje:</label>
 				            <div class="col-sm-10">
-				            	<textarea name="mensaje" cols="50" rows="10" class="form-control"></textarea>
+				            	<textarea id="mensaje" name="mensaje" cols="50" rows="10" class="form-control" required aria-required="true" aria-label="Tu mensaje de contacto"></textarea>
 				            </div>
 				        </div>
 						
 				        
                         <div class="form-actions text-right">
-                        	<input type="submit" value="Enviar" class="btn btn-primary">
+                        	<button type="submit" class="btn btn-primary" aria-label="Enviar mensaje de contacto">Enviar</button>
                         </div>
 
 				    </div>

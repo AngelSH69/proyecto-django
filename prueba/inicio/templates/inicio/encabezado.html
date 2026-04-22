@@ -11,41 +11,55 @@
 <link href="{% static 'inicio/css/londinium-theme.css' %}" rel="stylesheet" type="text/css">
 <link href="{% static 'inicio/css/styles.css' %}" rel="stylesheet" type="text/css">
 <link href="{% static 'inicio/css/icons.css' %}" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+<style>
+/* Optimización de imágenes responsivas */
+picture { display: contents; }
+picture img,
+img.img-media,
+img.img-responsive {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+}
 
-<script type="text/javascript" src="{% static 'inicio/js/plugins/charts/sparkline.min.js' %}"></script>
+/* Avatar usuario en sidebar */
+.user-menu img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 4px;
+}
 
-<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/uniform.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/select2.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/inputmask.js' %}"></script>
-<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/autosize.js' %}"></script>
-<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/inputlimit.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/listbox.js' %}"></script>
-<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/multiselect.js' %}"></script>
-<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/validate.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/tags.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/switch.min.js' %}"></script>
+/* Imágenes en tabla */
+.table-bordered .text-center img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
 
-<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/uploader/plupload.full.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/uploader/plupload.queue.min.js' %}"></script>
+/* Lazy loading */
+img[loading="lazy"] {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
 
-<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/wysihtml5/wysihtml5.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/wysihtml5/toolbar.js' %}"></script>
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
 
-<script type="text/javascript" src="{% static 'inicio/js/plugins/interface/daterangepicker.js' %}"></script>
-<script type="text/javascript" src="{% static 'inicio/js/plugins/interface/fancybox.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'inicio/js/plugins/interface/moment.js' %}"></script>
-<script type="text/javascript" src="{% static 'inicio/js/plugins/interface/jgrowl.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'inicio/js/plugins/interface/datatables.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'inicio/js/plugins/interface/colorpicker.js' %}"></script>
-<script type="text/javascript" src="{% static 'inicio/js/plugins/interface/fullcalendar.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'inicio/js/plugins/interface/timepicker.min.js' %}"></script>
+img[loading="lazy"][src] {
+    animation: none;
+    background: none;
+}
+</style>
 
-<script type="text/javascript" src="{% static 'inicio/js/bootstrap.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'inicio/js/application.js' %}"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
 
 </head>
 
@@ -61,7 +75,15 @@
 			<!-- Avatar del usuario -->
 			<div class="user-menu dropdown">
 				<a href="#">
-					<img src="{%block imagen%}{%endblock%}">
+					<!-- Avatar optimizado: 48x48px -->
+					<picture>
+						<img src="{%block imagen%}{%endblock%}" 
+							 alt="Avatar del usuario" 
+							 title="Perfil del usuario"
+							 width="48" 
+							 height="48"
+							 loading="lazy">
+					</picture>
 					<div class="user-info">
 						{%block span%}{%endblock%}
 					</div>
@@ -112,5 +134,37 @@
 
 	</div>
 		<!-- Fin del área principal -->
+
+	<!-- SCRIPTS MOVIDOS AL FINAL PARA MEJORAR PAGESPEED -->
+	<!-- Plugins de gráficos y formularios -->
+	<script type="text/javascript" src="{% static 'inicio/js/plugins/charts/sparkline.min.js' %}" defer></script>
+	<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/uniform.min.js' %}" defer></script>
+	<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/select2.min.js' %}" defer></script>
+	<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/inputmask.js' %}" defer></script>
+	<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/autosize.js' %}" defer></script>
+	<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/inputlimit.min.js' %}" defer></script>
+	<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/listbox.js' %}" defer></script>
+	<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/multiselect.js' %}" defer></script>
+	<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/validate.min.js' %}" defer></script>
+	<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/tags.min.js' %}" defer></script>
+	<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/switch.min.js' %}" defer></script>
+	<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/uploader/plupload.full.min.js' %}" defer></script>
+	<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/uploader/plupload.queue.min.js' %}" defer></script>
+	<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/wysihtml5/wysihtml5.min.js' %}" defer></script>
+	<script type="text/javascript" src="{% static 'inicio/js/plugins/forms/wysihtml5/toolbar.js' %}" defer></script>
+
+	<!-- Plugins de interfaz -->
+	<script type="text/javascript" src="{% static 'inicio/js/plugins/interface/daterangepicker.js' %}" defer></script>
+	<script type="text/javascript" src="{% static 'inicio/js/plugins/interface/fancybox.min.js' %}" defer></script>
+	<script type="text/javascript" src="{% static 'inicio/js/plugins/interface/moment.js' %}" defer></script>
+	<script type="text/javascript" src="{% static 'inicio/js/plugins/interface/jgrowl.min.js' %}" defer></script>
+	<script type="text/javascript" src="{% static 'inicio/js/plugins/interface/datatables.min.js' %}" defer></script>
+	<script type="text/javascript" src="{% static 'inicio/js/plugins/interface/colorpicker.js' %}" defer></script>
+	<script type="text/javascript" src="{% static 'inicio/js/plugins/interface/fullcalendar.min.js' %}" defer></script>
+	<script type="text/javascript" src="{% static 'inicio/js/plugins/interface/timepicker.min.js' %}" defer></script>
+
+	<!-- Bootstrap y scripts principales -->
+	<script type="text/javascript" src="{% static 'inicio/js/bootstrap.min.js' %}" defer></script>
+	<script type="text/javascript" src="{% static 'inicio/js/application.js' %}" defer></script>
 </body>
 </html>

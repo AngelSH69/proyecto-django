@@ -37,44 +37,41 @@
 {% block contenido %}
 
 			<!-- Formulario de registro -->
-			<form class="form-horizontal" action="#" role="form">
+			<form class="form-horizontal" action="#" role="form" aria-label="Formulario de registro de alumnos">
 	            <div class="panel panel-default">
 	                <div class="panel-body">
 
 				        <div class="form-group">
-				            <label class="col-sm-2 control-label text-right">Matricula:</label>
+				            <label class="col-sm-2 control-label text-right" for="matricula">Matricula:</label>
 				            <div class="col-sm-10">
-				            	<input type="text" class="form-control">
+				            	<input id="matricula" type="text" class="form-control" required aria-required="true" aria-label="Número de matrícula">
 				            </div>
 				        </div>
 				        
 				        <div class="form-group">
-				            <label class="col-sm-2 control-label text-right">Nombre:</label>
+				            <label class="col-sm-2 control-label text-right" for="nombre">Nombre:</label>
 				            <div class="col-sm-10">
-				            	<input type="text" class="form-control">
+				            	<input id="nombre" type="text" class="form-control" required aria-required="true" aria-label="Tu nombre completo">
 				            </div>
 				        </div>
 						<div class="form-group">
-				            <label class="col-sm-2 control-label text-right">Carrera:</label>
+				            <label class="col-sm-2 control-label text-right" for="carrera">Carrera:</label>
 				            <div class="col-sm-10">
-				            	<select data-placeholder="Elige una carrera..." class="select" tabindex="2">
+				            	<select id="carrera" data-placeholder="Elige una carrera..." class="select" tabindex="2" required aria-required="true" aria-label="Selecciona tu carrera">
 	                                <option value=""></option> 
-	                                <option value="win7">TIC</option> 
-	                                <option value="win8">BIO</option> 
-	                                <option value="macos">MAI</option> 
+	                                <option value="TIC">TIC</option> 
+	                                <option value="BIO">BIO</option> 
+	                                <option value="MAI">MAI</option> 
 	                        </select>
 				            </div>
 				        </div>
 						<div class="form-group">
 				            <label class="col-sm-2 control-label text-right">Turno:</label>
 				            <div class="col-sm-10">
-				            	<input type="radio" name="turno" class="styled" checked="checked"> Matutino
-											<input type="radio" name="turno" class="styled"> Vespertino
-				            </div>
-				        </div>
-				        
+				            	<label><input type="radio" name="turno" class="styled" value="Matutino" checked="checked" aria-label="Turno matutino"> Matutino</label>
+										<label><input type="radio" name="turno" class="styled" value="Vespertino" aria-label="Turno vespertino"> Vespertino</label>
                         <div class="form-actions text-right">
-                        	<input type="submit" value="Enviar" class="btn btn-primary">
+                        	<button type="submit" class="btn btn-primary" aria-label="Enviar registro">Enviar</button>
                         </div>
 
 				    </div>

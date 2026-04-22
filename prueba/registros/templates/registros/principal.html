@@ -43,7 +43,17 @@
 			 {% for alumno in 8A %}
 			 	<tr>
 					<td class="text-center">
-						<img src="{{ alumno.imagen.url }}" alt="" class="img-media">
+						<!-- Imagen optimizada: 40x40px display, lazy loading, decoding asincrónico -->
+						<picture>
+							<img src="{{ alumno.imagen.url }}" 
+								 alt="Foto de {{ alumno.nombre }}" 
+								 title="Alumno {{ alumno.nombre }}"
+								 width="40"
+								 height="40"
+								 class="img-media"
+								 loading="lazy"
+								 decoding="async">
+						</picture>
 					</td>
 					<td class="text-semibold">{{ alumno.matricula }}</td>
 					<td class="muted">{{ alumno.nombre}}</td>

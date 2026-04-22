@@ -47,12 +47,15 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',  # CACHE: Agrega este middleware para caché
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'prueba.middleware.CacheHeadersMiddleware',  # CUSTOM: Middleware para headers de caché
+    'django.middleware.cache.FetchFromCacheMiddleware',  # CACHE: Agrega este middleware para caché
 ]
 
 ROOT_URLCONF = 'prueba.urls'
@@ -137,6 +140,18 @@ STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+# ========== IMAGE OPTIMIZATION FOR PAGESPEED ==========
+# Compression settings for images
+IMAGE_COMPRESSION_QUALITY = 80  # 1-100, default 85
+IMAGE_ALLOWED_FORMATS = ['JPEG', 'PNG', 'WEBP', 'GIF']
+
+# Tamaño máximo de imagen en MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50 MB
+DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800
+
+# Extensiones permitidas para imágenes
+DATA_UPLOAD_MAX_NUMBER_FIELDS = None
+
 #CKEDITOR_CONFIGS
 
 CKEDITOR_CONFIGS = {
@@ -155,3 +170,21 @@ CKEDITOR_CONFIGS = {
         ]
     },
 }
+
+# ========== CACHE CONFIGURATION FOR PAGESPEED ==========
+# Configura cachés para imágenes, CSS, JS (30 días = 2592000 segundos)
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    }
+}
+
+# Configura el tiempo de caché global (en segundos)
+CACHE_TIMEOUT = 2592000  # 30 días
+
+# Headers para cachear recursos estáticos y media
+STATIC_MAX_AGE_SECONDS = 2592000  # 30 días para CSS, JS, imágenes estáticas
+SECURE_HSTS_SECONDS = 31536000  # 1 año para HSTS
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
