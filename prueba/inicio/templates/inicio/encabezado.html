@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=5">
 <title>{% block titulo %}{% endblock %}</title>
 
 {% load static %}
@@ -12,10 +12,16 @@
 /* Reset y Layout base */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { font-size: 14px; }
-body { font-family: Arial, sans-serif; background: #f5f5f5; }
+body { font-family: Arial, sans-serif; background: #f5f5f5; color: #333333; }
 .page-container { display: flex; }
-.sidebar { flex: 0 0 250px; background: #2c3e50; color: white; }
+.sidebar { flex: 0 0 250px; background: #2c3e50; color: #ffffff; }
 .page-content { flex: 1; }
+/* Contraste mejorado para accesibilidad */
+a { color: #0056b3; text-decoration: underline; }
+a:visited { color: #5a2d81; }
+a:focus, a:active { outline: 2px solid #0056b3; outline-offset: 2px; }
+button, input[type="button"], input[type="submit"] { background-color: #0056b3; color: white; }
+button:focus, input[type="button"]:focus, input[type="submit"]:focus { outline: 2px solid #0056b3; }
 
 /* Optimización de imágenes responsivas */
 picture { display: contents; }
@@ -94,25 +100,20 @@ img[loading="lazy"][src] { opacity: 1; }
 		<!-- Fin de la barra lateral -->
          
 
-
 		
 	</div>
 	<!-- Área principal -->
-	 	<div class="page-content">
-	{% block encavezado%}{%endblock%}
-
-	
-	<div class="breadcrumb-line">
-		<ul class="breadcrumb">
-		<a href="{%url 'Principal'%}">
-			{%if request.path == '/'%}
-				Principal
-			{%else%}
-				Principal{{request.path}}
-			{%endif%}		
-		</a>
-		</ul>
-	</div>
+	<main class="page-content">
+		{% block encavezado%}{%endblock%}
+			<li><a href="{%url 'Principal'%}">
+				{%if request.path == '/'%}
+					Principal
+				{%else%}
+					Principal{{request.path}}
+				{%endif%}
+			</a></li>
+		</ol>
+	</nav>
     
     
 	
@@ -120,8 +121,8 @@ img[loading="lazy"][src] { opacity: 1; }
     {% block contenido %}
     {% endblock %}
 
-	</div>
-		<!-- Fin del área principal -->
+	</main>
+	<!-- Fin del área principal -->
 
 	<!-- SCRIPTS MOVIDOS AL FINAL PARA MEJORAR PAGESPEED -->
 	<!-- Plugins de gráficos y formularios -->
