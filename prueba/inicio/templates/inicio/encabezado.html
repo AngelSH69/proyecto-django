@@ -7,56 +7,44 @@
 <title>{% block titulo %}{% endblock %}</title>
 
 {% load static %}
-<link href="{% static 'inicio/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
-<link href="{% static 'inicio/css/londinium-theme.css' %}" rel="stylesheet" type="text/css">
-<link href="{% static 'inicio/css/styles.css' %}" rel="stylesheet" type="text/css">
-<link href="{% static 'inicio/css/icons.css' %}" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
-
+<!-- Critical CSS inline para no bloquear renderizado -->
 <style>
+/* Reset y Layout base */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 14px; }
+body { font-family: Arial, sans-serif; background: #f5f5f5; }
+.page-container { display: flex; }
+.sidebar { flex: 0 0 250px; background: #2c3e50; color: white; }
+.page-content { flex: 1; }
+
 /* Optimización de imágenes responsivas */
 picture { display: contents; }
-picture img,
-img.img-media,
-img.img-responsive {
-    max-width: 100%;
-    height: auto;
-    object-fit: cover;
-    object-position: center;
+picture img, img.img-media, img.img-responsive {
+    max-width: 100%; height: auto; object-fit: cover; object-position: center;
 }
-
-/* Avatar usuario en sidebar */
-.user-menu img {
-    width: 48px;
-    height: 48px;
-    object-fit: cover;
-    border-radius: 4px;
-}
-
-/* Imágenes en tabla */
-.table-bordered .text-center img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-/* Lazy loading */
-img[loading="lazy"] {
-    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-    background-size: 200% 100%;
-    animation: loading 1.5s infinite;
-}
-
-@keyframes loading {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-}
-
-img[loading="lazy"][src] {
-    animation: none;
-    background: none;
-}
+.user-menu img { width: 48px; height: 48px; object-fit: cover; border-radius: 4px; }
+.table-bordered .text-center img { max-width: 100%; height: auto; display: block; }
+img[loading="lazy"] { opacity: 0.8; }
+img[loading="lazy"][src] { opacity: 1; }
 </style>
+
+<!-- CSS no crítico diferido -->
+<link href="{% static 'inicio/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" media="print" onload="this.media='all'; this.onload=null;">
+<link href="{% static 'inicio/css/londinium-theme.css' %}" rel="stylesheet" type="text/css" media="print" onload="this.media='all'; this.onload=null;">
+<link href="{% static 'inicio/css/styles.css' %}" rel="stylesheet" type="text/css" media="print" onload="this.media='all'; this.onload=null;">
+<link href="{% static 'inicio/css/icons.css' %}" rel="stylesheet" type="text/css" media="print" onload="this.media='all'; this.onload=null;">
+
+<!-- Google Fonts también diferido -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=latin,cyrillic-ext" rel="stylesheet" type="text/css" media="print" onload="this.media='all'; this.onload=null;">
+
+<!-- Fallback para navegadores sin JS -->
+<noscript>
+  <link href="{% static 'inicio/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'inicio/css/londinium-theme.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'inicio/css/styles.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'inicio/css/icons.css' %}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+</noscript>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
@@ -166,5 +154,21 @@ img[loading="lazy"][src] {
 	<!-- Bootstrap y scripts principales -->
 	<script type="text/javascript" src="{% static 'inicio/js/bootstrap.min.js' %}" defer></script>
 	<script type="text/javascript" src="{% static 'inicio/js/application.js' %}" defer></script>
+
+	<!-- Polyfill para cargar CSS diferido en navegadores sin soporte -->
+	<script>
+	(function() {
+		// Cargar CSS que fue diferido con media="print"
+		const links = document.querySelectorAll('link[media="print"][onload]');
+		links.forEach(link => {
+			const onLoadCode = link.getAttribute('onload');
+			if (onLoadCode && onLoadCode.includes('media=')) {
+				// Ya está configurado, ejecutar si es necesario
+				link.media = 'all';
+				link.onload = null;
+			}
+		});
+	})();
+	</script>
 </body>
 </html>
